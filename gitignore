@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.pkl
+*.so
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.idea/
+.vscode/
+
+# Django stuff
+*.log
+db.sqlite3
+media/
+
+# PyCharm
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code
+.vscode/
+
+# Byte-compiled
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Cache
+*.cache
+*.pytest_cache/
+.coverage
+.tox/
+.nox/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local settings
+local_settings.py
+
+# Static files (optional, if collected)
+staticfiles/
+static_root/
