@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | My Clothing Store</title>
+ <link rel="stylesheet" href="{% static 'fashionstylish/style.css' %}">
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Fashion Store</div>
+  <div class="hamburger">&#9776;</div>
+
+  <nav class="nav">
+    <ul>
+      <li><a href="{% url 'home' %}">HOME</a></li>
+      <li><a href="{% url 'collection_list' %}">COLLECTION</a></li>
+      <li><a href="{% url 'about' %}">ABOUT</a></li>
+      <li><a href="{% url 'contact' %}">CONTACT</a></li>
+
+      {% if user.is_authenticated %}
+        <li><a href="#">Hi, {{ user.username }}</a></li>
+        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}">LOGIN</a></li>
+        <li><a href="{% url 'signup' %}">SIGNUP</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <div class="search-container">
+    <input type="text" placeholder="Search..." id="searchInput">
+    <button id="searchBtn">🔍</button>
+  </div>
+</header>
+
+
+    <section class="sec-about">
+  <div class="about-container">
+    <div class="about-item">
+      <h1>About Us</h1>
+      <p>Welcome to <b>Fashion Store</b>, your one-stop destination for trendy, stylish, and comfortable clothing.
+      We believe fashion is not just about wearing clothes—it’s about expressing your personality and confidence.</p>
+
+      <p>Since our beginning, our mission has been to make fashion accessible to everyone.
+      Whether you are looking for casual wear, party outfits, or professional clothes, we bring carefully selected collections that combine quality with affordability.</p>
+
+      <p>Our team of designers and curators handpick every outfit to ensure it matches the latest global trends.
+      From modern streetwear to timeless classics, each product is made with premium fabrics to guarantee comfort and durability.</p>
+
+      <p>At Fashion Store, we value our customers like family.
+      We are committed to providing excellent service, fast delivery, and a seamless shopping experience.
+      Your trust inspires us to keep growing and improving every day.</p>
+
+      <p>Join us on this journey to redefine fashion, where style meets lifestyle.
+      Let’s make every outfit a statement of who you are.</p>
+
+      <a href="about.html" ></a>
+    </div>
+
+
+    <div class="about-item">
+      <img src="https://images.unsplash.com/photo-1521334884684-d80222895322?w=600" alt="Fashion Store" style="width:100%; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    </div>
+  </div>
+</section>
+
+<section class="about-us">
+  <div class="container">
+    <!-- Our Story -->
+    <div class="about-section">
+      <h2>Our Story</h2>
+      <p>Fashion Store started with a simple idea: to bring affordable yet premium-quality fashion to people who value both style and comfort. From our humble beginnings as a small online shop, we have grown into a trusted platform where customers can explore a wide range of fashion collections, tailored to suit every occasion.</p>
+      <p></p>
+    </div>
+
+    <!-- What We Stand For -->
+    <div class="about-section">
+      <h2>What We Stand For</h2>
+      <p>We believe fashion is a form of self-expression. Every outfit you wear tells a story about who you are, how you feel, and what you stand for. At Fashion Store, our goal is to empower you with clothing that boosts confidence, reflects your personality, and keeps you ahead of trends.</p>
+    </div>
+
+    <!-- Our Promise -->
+    <div class="about-section">
+      <h2>Our Promise</h2>
+      <p>We are committed to maintaining high standards of quality across every product. Each item is carefully inspected to ensure durability, comfort, and style. We promise transparent pricing, smooth delivery, and exceptional customer service—because our customers deserve nothing less.</p>
+    </div>
+
+    <!-- A Trend for Everyone -->
+    <div class="about-section">
+      <h2>A Trend for Everyone</h2>
+      <p>Whether you’re a student, working professional, homemaker, or fashion enthusiast, our store offers something for everyone. From casual everyday wear to elegant party outfits and office-ready formals, Fashion Store is your one-stop shop for every mood and occasion.</p>
+    </div>
+
+    <!-- Sustainability -->
+    <div class="about-section">
+      <h2>Sustainability Matters</h2>
+      <p>We understand the responsibility that comes with being part of the fashion industry. That’s why we continuously explore eco-friendly practices—like sustainable fabrics, ethical sourcing, and reducing waste. Fashion Store isn’t just about looking good today; it’s about creating a better tomorrow.</p>
+    </div>
+
+    <!-- Vision -->
+    <div class="about-section">
+      <h2>Our Vision</h2>
+      <p>Our vision is to redefine online shopping by blending style, affordability, and trust. We aspire to be a global name in fashion e-commerce, always staying true to our values of quality and customer satisfaction.</p>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="about-section">
+      <h2>Why Choose Us?</h2>
+      <ul>
+        <li>Wide range of collections for men, women, and kids.</li>
+        <li>Affordable prices without compromising quality.</li>
+        <li>Latest fashion trends updated every season.</li>
+        <li>Reliable customer support and hassle-free returns.</li>
+        <li>A community-driven brand that values every customer.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+  <footer>
+    <p>&copy; 2025 My Clothing Store. All rights reserved.</p>
+    <p>
+      <a href="#" style="color:#1abc9c; margin:0 10px;">Privacy Policy</a> |
+      <a href="#" style="color:#1abc9c; margin:0 10px;">Terms of Service</a> |
+      <a href="#" style="color:#1abc9c; margin:0 10px;">Contact Us</a>
+    </p>
+    <div class="icon">
+      <a href="https://facebook.com" target="blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="facebook" width="30">
+      </a>
+      <a href="https://instagram.com" target="blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="instagram" width="30">
+      </a>
+      <a href="https://twitter.com" target="blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="twitter" width="30">
+      </a>
+      <a href="https://youtube.com" target="blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="youtube" width="30">
+      </a>
+    </div>
+  </footer>
+<script src="{% static 'fashionstylish/script.js' %}"></script>
+</body>
+</html>

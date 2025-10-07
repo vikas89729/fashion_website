@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collections - Fashion Store</title>
+  <link rel="stylesheet" href="{% static 'fashionstylish/style.css' %}">
+  <link rel="stylesheet" href="{% static 'fashionstylish/style1.css' %}">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="logo">Fashion Store</div>
+  <div class="hamburger">&#9776;</div>
+
+  <nav class="nav">
+    <ul>
+      <li><a href="{% url 'home' %}">HOME</a></li>
+      <li><a href="{% url 'collection_list' %}">COLLECTION</a></li>
+      <li><a href="{% url 'about' %}">ABOUT</a></li>
+      <li><a href="{% url 'contact' %}">CONTACT</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="#">Hi, {{ user.username }}</a></li>
+        <li><a href="{% url 'logout' %}">LOGOUT</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}">LOGIN</a></li>
+        <li><a href="{% url 'signup' %}">SIGNUP</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <div class="search-container">
+    <input type="text" placeholder="Search..." id="searchInput">
+    <button id="searchBtn">🔍</button>
+  </div>
+</header>
+
+<main>
+  <section class="cl-container">
+    {% for item in collections %}
+      <div class="cl-card" data-aos="fade-up">
+        <img class="ic"
+             src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'fashionstylish/no-image.png' %}{% endif %}"
+             alt="{{ item.name }}">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.desc }}</p>
+        <p class="price">₹{{ item.price }}</p>
+        <a href="{% url 'subcategory_list' item.id %}" class="buy-now">View Collection</a>
+      </div>
+    {% empty %}
+      <p>No collections yet.</p>
+    {% endfor %}
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Fashion Store. All rights reserved.</p>
+  <div class="icon">
+    <a href="https://facebook.com" target="blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="facebook" width="30">
+    </a>
+    <a href="https://instagram.com" target="blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="instagram" width="30">
+    </a>
+    <a href="https://twitter.com" target="blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="twitter" width="30">
+    </a>
+    <a href="https://youtube.com" target="blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="youtube" width="30">
+    </a>
+  </div>
+</footer>
+
+<script src="{% static 'fashionstylish/script.js' %}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: true });
+</script>
+
+</body>
+</html>

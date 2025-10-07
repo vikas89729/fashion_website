@@ -1,0 +1,19 @@
+{% load static %}
+{% extends 'fashionstylish/index.html' %}
+{% block title %}Subcategories | {{ collection.name }}{% endblock %}
+
+{% block content %}
+<h2>Subcategories in {{ collection.name }}</h2>
+<section class="cl-container">
+    {% for sub in subcategories %}
+        <div class="cl-card" data-aos="fade-up">
+            <img src="{% if sub.image %}{{ sub.image.url }}{% else %}{% static 'fashionstylish/no-image.png' %}{% endif %}" alt="{{ sub.name }}">
+            <h3>{{ sub.name }}</h3>
+            <a href="{% url 'product_detail' product.id %}">View</a>
+
+        </div>
+    {% empty %}
+        <p>No subcategories found.</p>
+    {% endfor %}
+</section>
+{% endblock %}
