@@ -1,10 +1,64 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{% static 'fashionstylish/style.css' %}">
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 20px; background: #f9f9f9; }
+        h1 { text-align: center; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+
+        .cart-summary, .checkout-form { margin-bottom: 30px; }
+        .cart-summary ul { list-style: none; padding: 0; margin: 0; }
+        .cart-summary li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; color: #555; }
+
+        .checkout-form input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+        .checkout-form button { width: 100%; padding: 14px; background-color: #ff3e6c; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        .checkout-form button:hover { background-color: #e73360; }
+
+        .total { text-align: right; font-weight: bold; font-size: 18px; color: #222; margin-top: 15px; }
+    </style>
 </head>
 <body>
-$END$
+    <h1>Checkout</h1>
+    <div class="container">
+
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <h2>Your Cart</h2>
+            {% if cart_items %}
+                <ul>
+                    {% for item in cart_items %}
+                        <li>
+                            <span>{{ item.variant.product.name }} ({{ item.variant.color }} / {{ item.variant.size }}) × {{ item.quantity }}</span>
+                            <span>₹{{ item.variant.price|floatformat:2 }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="total">Total: ₹{{ total|floatformat:2 }}</div>
+            {% else %}
+                <p>Your cart is empty.</p>
+            {% endif %}
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="checkout-form">
+            <h2>Shipping Information</h2>
+            <form method="POST" action="{% url 'place_order' %}">
+                {% csrf_token %}
+                <input type="text" name="full_name" placeholder="Full Name" required>
+                <input type="text" name="address" placeholder="Address" required>
+                <input type="text" name="city" placeholder="City" required>
+                <input type="text" name="zip_code" placeholder="Zip Code" required>
+                <input type="text" name="phone" placeholder="Phone Number" required>
+
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+
+    </div>
 </body>
 </html>

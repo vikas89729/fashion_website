@@ -1,0 +1,25 @@
+{% extends 'fashionstylish/index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-card">
+        <h2>My Profile</h2>
+
+        <div class="profile-info">
+            <p><strong>Username:</strong> {{ request.user.username }}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <p><strong>Total Orders:</strong> {{ orders_count }}</p>
+        </div>
+
+        <div class="profile-buttons">
+            <a href="{% url 'order_history' %}" class="btn">View My Orders</a>
+            <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

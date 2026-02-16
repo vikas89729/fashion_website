@@ -4,53 +4,38 @@ __pycache__/
 *.pyo
 *.pyd
 *.pyc
-*.pdb
-*.pkl
-*.so
 
 # Virtual environment
 venv/
 env/
 ENV/
 .venv/
-.idea/
-.vscode/
 
-# Django stuff
-*.log
+# Django
+*.sqlite3
 db.sqlite3
+*.log
+*.pot
+*.pyc
+*.mo
+*.coverage
+*.cover
+*.db
+*.sqlite3-journal
+
+# Media files (uploads)
 media/
+uploads/
 
-# PyCharm
-*.iml
-*.ipr
-*.iws
-.idea/
+# Static files (collectstatic output)
+staticfiles/
 
-# VS Code
+# IDE / Editor
 .vscode/
+.idea/
+*.swp
+*.swo
 
-# Byte-compiled
-*.egg
-*.egg-info/
-dist/
-build/
-.eggs/
-
-# Cache
-*.cache
-*.pytest_cache/
-.coverage
-.tox/
-.nox/
-
-# OS generated files
+# OS-specific
 .DS_Store
 Thumbs.db
-
-# Local settings
-local_settings.py
-
-# Static files (optional, if collected)
-staticfiles/
-static_root/

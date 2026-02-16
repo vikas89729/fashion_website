@@ -1,0 +1,45 @@
+{% extends 'fashionstylish/index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="orders-container">
+    <h2>My Orders</h2>
+
+    {% for order in orders %}
+        <div class="order-card">
+
+            <div class="order-header">
+                <p><strong>Order ID:</strong> #{{ order.id }}</p>
+                <p><strong>Date:</strong> {{ order.created_at }}</p>
+                <p><strong>Total:</strong> ₹{{ order.total_price }}</p>
+            </div>
+
+            <div class="order-address">
+                <p><strong>Shipping Address:</strong></p>
+                <p>{{ order.full_name }}</p>
+                <p>{{ order.address }}, {{ order.city }} - {{ order.zip_code }}</p>
+                <p>Phone: {{ order.phone }}</p>
+            </div>
+
+            <div class="order-items">
+                <h4>Items:</h4>
+               {% for item in order.items.all %}
+
+                    <div class="item-row">
+                        <span>{{ item.variant.product.name }}</span>
+                        <span>Qty: {{ item.quantity }}</span>
+                        <span>₹{{ item.price }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    {% empty %}
+        <div class="no-orders">
+            <p>You have not placed any orders yet.</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

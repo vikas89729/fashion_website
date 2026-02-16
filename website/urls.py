@@ -9,8 +9,8 @@ urlpatterns = [
     path('', include('fashionstylish.urls')),
     path('accounts/', include('accounts.urls')),
 
-    path('search/', views.search_view, name='search'),
-    path('search-suggestions/', views.search_suggestions, name='search_suggestions'),
+    # path('search/', views.search_view, name='search'),
+    # path('search-suggestions/', views.search_suggestions, name='search_suggestions'),
 
 ]
 

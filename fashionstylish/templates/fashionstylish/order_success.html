@@ -1,10 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Order Success</title>
+    <link rel="stylesheet" href="{% static 'fashionstylish/style.css' %}">
 </head>
 <body>
-$END$
+    <div style="max-width:600px; margin:auto; text-align:center; padding:50px;">
+        <h1>Thank You!</h1>
+        <p>Your order has been placed successfully.</p>
+        <a href="{% url 'home' %}" style="padding:10px 20px; background-color:#28a745; color:white; text-decoration:none; border-radius:5px;">Continue Shopping</a>
+    </div>
 </body>
 </html>

@@ -1,35 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fashion Store</title>
-  <link rel="stylesheet" href="{% static 'fashionstylish/style.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'fashionstylish/style.css' %}">
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">-->
+<!--  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />-->
 
 </head>
 
-
 <body>
 
+<!-- HEADER -->
 <header>
   <div class="logo">Fashion Store</div>
   <div class="hamburger">&#9776;</div>
-
   <nav class="nav">
     <ul>
       <li><a href="{% url 'home' %}">HOME</a></li>
       <li><a href="{% url 'collection_list' %}">COLLECTION</a></li>
       <li><a href="{% url 'about' %}">ABOUT</a></li>
       <li><a href="{% url 'contact' %}">CONTACT</a></li>
-
       {% if user.is_authenticated %}
-        <li><a href="#">Hi, {{ user.username }}</a></li>
+        <li><a href="{% url 'profile' %}">
+    Hi, {{ request.user.username }}
+</a>
+</li>
         <li><a href="{% url 'logout' %}">LOGOUT</a></li>
       {% else %}
         <li><a href="{% url 'login' %}">LOGIN</a></li>
@@ -38,145 +38,118 @@
     </ul>
   </nav>
 
+  <!-- SEARCH -->
   <div class="search-container">
-    <input type="text" placeholder="Search..." id="searchInput">
-    <button id="searchBtn">🔍</button>
+    <form method="get" action="{% url 'search' %}">
+      <input type="text" name="q" placeholder="Search products..." required>
+      <button type="submit"><i class="fa fa-search"></i> Search</button>
+    </form>
   </div>
 </header>
 
+<!-- ================= PAGE CONTENT ================= -->
+{% block content %}
+
+<!-- BANNER SLIDER -->
+<section class="banner-slider">
+  {% for banner in banners %}
+    <div class="banner-slide {% if forloop.first %}active{% endif %}" style="background-image: url('{{ banner.image.url }}');">
+<!--      {% if banner.title %}<h2>{{ banner.title }}</h2>{% endif %}-->
+      <p>Total banners: {{ banners|length }}</p>
 
 
-  <section>
-    <div class="banner">
-      <!-- <h1> Trendy & Stylish Clothing </h1>
-      <p>Explore the latest fashion outfits designed for comfort and style.</p> -->
-    <a href="{% url 'collection_list' %}">
-  <button class="btn">SHOP NOW</button>
-</a>
 
+      {% if banner.link %}
+        <a href="{{ banner.link }}"><button class="btn">SHOP NOW</button></a>
+      {% endif %}
     </div>
-  </section>
+  {% empty %}
+    <p>No banners available.</p>
+  {% endfor %}
+</section>
+
+<!-- FEATURED COLLECTIONS -->
+<div class="box">
+  <h2>Featured Collections</h2>
+<!--  <h2>Total Featured: {{ collections|length }}</h2>-->
+
+</div>
+
+<section class="featured-collections">
+  <div class="collections-container">
+ {% for featured in collections %}
+  <div class="collection-item" data-aos="fade-up">
+
+    <a href="{% url 'subcategory_list' featured.collection.id %}" class="product-link">
 
 
+      {% if featured.collection.image %}
+        <img src="{{ featured.collection.image.url }}"
+             alt="{{ featured.collection.name }}">
+      <div style="border:2px solid red; padding:20px;">
+<!--    TEST {{ featured.collection.name }}-->
+</div>
 
-  <div class="box">
-    <h2>Our Collection</h2>
+      {% else %}
+        <img src="{% static 'fashionstylish/no-image.png' %}" alt="No Image">
+      {% endif %}
+
+      <h3>{{ featured.collection.name }}</h3>
+
+    </a>
   </div>
+{% empty %}
+  <p>No featured collections.</p>
+{% endfor %}
+
+  </div>
+</section>
+
+
+
+<!-- PRODUCTS GRID -->
+<!-- PRODUCTS GRID -->
+<div class="box">
+  <h2>Our Products</h2>
+<!--    <h2>Total Products: {{ products|length }}</h2>-->
+</div>
+
 <section class="clothes">
   <div class="clothes-container">
-    <div class="cloth-item" id="card1">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/613l8ZN8TfL._SY695_.jpg" alt="Nike Shoes White">
-        <p>Nike Shoes White</p>
-        <button class="btn1">Buy Now</button>
+    {% for product in products %}
+      <div class="cloth-item" data-aos="fade-up">
+
+        <a href="{% url 'product_detail' product.pk %}" class="product-link">
+
+          {% if product.image %}
+<!--            <h2>Total Products: {{ products|length }}</h2>-->
+
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          {% else %}
+            <img src="{% static 'fashionstylish/no-image.png' %}" alt="No Image">
+          {% endif %}
+
+          <p class="product-name">{{ product.name }}</p>
+<!--          <p class="product-price">₹{{ product.price }}</p>-->
+
+        </a>
+
       </div>
-    </div>
-    <div class="cloth-item" id="card2">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/61FRp--pyOL._SY695_.jpg" alt="Nike Shoes Black">
-        <p>Nike Shoes Black</p>
-        <button class="btn1">Buy Now</button>
-      </div>
-    </div>
-    <div class="cloth-item" id="card3">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/819bt2GZ8vL._SY879_.jpg" alt="Trouser">
-        <p>Trouser</p>
-        <button class="btn1">Buy Now</button>
-      </div>
-    </div>
-    <div class="cloth-item" id="card4">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/71xm4Fc2MqL._AC_UL480_FMwebp_QL65_.jpg" alt="jeans">
-        <p>Jeans</p>
-        <button class="btn1">Buy Now</button>
-      </div>
-    </div>
-    <div class="cloth-item" id="card5">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/41KuUZgJ7XL._SX679_.jpg" alt="T-shirt">
-        <p>T-shirt</p>
-        <button class="btn1">Buy Now</button>
-      </div>
-    </div>
-    <div class="cloth-item" id="card6">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/51ZhbqJinoL.jpg" alt="Skirt">
-        <p>Skirt</p>
-        <button class="btn1">Buy Now</button>
-      </div>
-    </div>
-    <div class="cloth-item" id="card7">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/61lRX2UiaJL._SX679_.jpg" alt="Denim Shirt">
-        <p>Denim Shirt</p>
-        <button class="btn1">Buy Now</button>
-      </div>
-    </div>
-    <div class="cloth-item" id="card8">
-      <div class="card-content">
-        <img src="https://m.media-amazon.com/images/I/51W4wcblkWL._SX679_.jpg" alt="Hoodie">
-        <p>Hoodie</p>
-        <button class="btn1">Buy Now</button>
-      </div>
-    </div>
+    {% empty %}
+      <p>No products available.</p>
+    {% endfor %}
   </div>
+
   <div class="see-me">
-  <a href="{% url 'collection_list' %}" class="see-btn">See All...</a>
-
-
+    <a href="{% url 'collection_list' %}" class="see-btn">See All...</a>
   </div>
 </section>
 
 
-  <section class="sec-about">
-  <div class="about-container">
-    <div class="about-item">
-      <h1>About Us</h1>
-      <p>Welcome to <b>Fashion Store</b>, your one-stop destination for trendy, stylish, and comfortable clothing.
-      We believe fashion is not just about wearing clothes—it’s about expressing your personality and confidence.</p>
+{% endblock %}
 
-      <p>Since our beginning, our mission has been to make fashion accessible to everyone.
-      Whether you are looking for casual wear, party outfits, or professional clothes, we bring carefully selected collections that combine quality with affordability.</p>
-
-      <p>Our team of designers and curators handpick every outfit to ensure it matches the latest global trends.
-      From modern streetwear to timeless classics, each product is made with premium fabrics to guarantee comfort and durability.</p>
-
-      <p>At Fashion Store, we value our customers like family.
-      We are committed to providing excellent service, fast delivery, and a seamless shopping experience.
-      Your trust inspires us to keep growing and improving every day.</p>
-
-      <p>Join us on this journey to redefine fashion, where style meets lifestyle.
-      Let’s make every outfit a statement of who you are.</p>
-
-      <a href="{% url 'about' %}" class="readme">Read More...</a>
-    </div>
-
-
-    <div class="about-item">
-      <img src="https://images.unsplash.com/photo-1521334884684-d80222895322?w=600" alt="Fashion Store" style="width:100%; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
-    </div>
-  </div>
-</section>
-
-
-
-
-
-
-  <section id="contact" class="contact">
-    <h2>Contact</h2>
-    <p>If you want to order the latest fashion outfits or have any questions, please fill out the form below:</p>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </section>
-
-
-  <footer>
+<!-- FOOTER -->
+<footer>
     <p>&copy; 2025 Fashion Store. All rights reserved.</p>
     <p>
       <a href="#" style="color:#1abc9c; margin:0 10px;">Privacy Policy</a> |
@@ -184,30 +157,17 @@
       <a href="#" style="color:#1abc9c; margin:0 10px;">Contact Us</a>
     </p>
     <div class="icon">
-      <a href="https://facebook.com" target="blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="facebook" width="30">
-      </a>
-      <a href="https://instagram.com" target="blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="instagram" width="30">
-      </a>
-      <a href="https://twitter.com" target="blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="twitter" width="30">
-      </a>
-      <a href="https://youtube.com" target="blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="youtube" width="30">
-      </a>
+      <a href="https://facebook.com" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="30"></a>
+      <a href="https://instagram.com" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="30"></a>
+      <a href="https://twitter.com" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" width="30"></a>
+      <a href="https://youtube.com" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="30"></a>
     </div>
-  </footer>
+</footer>
 
-
-  <script src="{% static 'fashionstylish/script.js' %}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>AOS.init();</script>
+<!-- JS -->
+<script src="{% static 'fashionstylish/script.js' %}"></script>
+<!--<script src="https://unpkg.com/aos@next/dist/aos.js"></script>-->
 
 
 </body>
-
 </html>

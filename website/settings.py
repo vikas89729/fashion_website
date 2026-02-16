@@ -17,6 +17,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -25,8 +26,16 @@ SECRET_KEY = 'django-insecure-epvsv2i%ti^%@=(tf0a(jnvz-o0$10uv*g*+p#$ll-nxvy!&+n
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# ALLOWED_HOSTS.append(os.environ.get('CLOUDFLARE_TUNNEL_DOMAIN', ''))
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.trycloudflare.com',
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.trycloudflare.com',
+]
 
 
 

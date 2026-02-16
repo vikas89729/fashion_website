@@ -1,10 +1,73 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{% static 'fashionstylish/style.css' %}">
 </head>
 <body>
-$END$
+
+<div class="cart-page">
+
+  <h1>Your Shopping Cart</h1>
+
+  {% if cart_items %}
+  <div class="cart-card">
+
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td>
+            {{ item.variant.product.name }}
+            <br>
+            <small>({{ item.variant.color }} / {{ item.variant.size }})</small>
+          </td>
+
+          <td>₹{{ item.variant.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>₹{{ item.total_price }}</td>
+
+          <td>
+            {% if item.variant %}
+              <a href="{% url 'remove_from_cart' item.variant.id %}" class="remove-btn">
+                Remove
+              </a>
+            {% else %}
+              <span class="invalid">Invalid</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="cart-footer">
+      <h3>Total: ₹{{ total }}</h3>
+      <a href="{% url 'checkout' %}" class="checkout-btn">
+        Proceed to Checkout
+      </a>
+    </div>
+
+  </div>
+  {% else %}
+
+    <p class="empty-cart">Your cart is empty.</p>
+
+  {% endif %}
+
+</div>
+
 </body>
 </html>

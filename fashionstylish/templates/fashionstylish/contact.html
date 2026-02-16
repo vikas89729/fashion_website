@@ -29,12 +29,14 @@
    <section id="contact" class="contact">
     <h2>Contact</h2>
     <p>If you want to order the latest fashion outfits or have any questions, please fill out the form below:</p>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
+   <form method="POST" class="contact-form">
+  {% csrf_token %}
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+  <button type="submit">Send</button>
+</form>
+
   </section>
   <footer>
     <p>&copy; 2025 Fashion Store. All rights reserved.</p>
